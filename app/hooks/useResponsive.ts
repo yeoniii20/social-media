@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-const breakpoints: Record<"sm" | "md" | "lg" | "lx", string> = {
-  sm: "(min-width: 360px)",
-  md: "(min-width: 768px)",
-  lg: "(min-width: 1024px)",
-  lx: "(min-width: 1288px)",
+const breakpoints: Record<'sm' | 'md' | 'lg' | 'lx', string> = {
+  sm: '(min-width: 360px)',
+  md: '(min-width: 768px)',
+  lg: '(min-width: 1024px)',
+  lx: '(min-width: 1288px)',
 };
 
 /**
@@ -14,7 +14,7 @@ const breakpoints: Record<"sm" | "md" | "lg" | "lx", string> = {
  * @param screen 반응형 break points
  * @returns
  */
-const useResponsive = (screen: "sm" | "md" | "lg" | "lx"): boolean => {
+const useResponsive = (screen: 'sm' | 'md' | 'lg' | 'lx'): boolean => {
   const [isBreakPoint, setIsBreakPoint] = useState<boolean>(false);
   const query = breakpoints[screen];
 
@@ -23,9 +23,9 @@ const useResponsive = (screen: "sm" | "md" | "lg" | "lx"): boolean => {
     const updateBreakPoint = () => setIsBreakPoint(mediaQueryList.matches);
 
     updateBreakPoint();
-    mediaQueryList.addEventListener("change", updateBreakPoint);
+    mediaQueryList.addEventListener('change', updateBreakPoint);
 
-    return () => mediaQueryList.removeEventListener("change", updateBreakPoint);
+    return () => mediaQueryList.removeEventListener('change', updateBreakPoint);
   }, [query]);
 
   return isBreakPoint;
