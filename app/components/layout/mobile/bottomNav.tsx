@@ -1,5 +1,5 @@
 import React from 'react';
-import { MOBILE_NAV_ITEM } from '@/app/data/menu';
+import { NAV_ITEM } from '@/app/data/menu';
 import { usePathname, useRouter } from 'next/navigation';
 
 const MobileBottomNav = () => {
@@ -7,7 +7,7 @@ const MobileBottomNav = () => {
   const pathname = usePathname();
 
   const getActiveTab = () => {
-    const current = MOBILE_NAV_ITEM.find((item) => {
+    const current = NAV_ITEM.find((item) => {
       if (item.url === '/') return pathname === '/';
 
       return pathname.startsWith(item.url);
@@ -25,7 +25,7 @@ const MobileBottomNav = () => {
     <div className='fixed bottom-0 left-0 right-0 z-50'>
       <div className='border-t border-border bg-white/95 px-4 py-0 backdrop-blur-md'>
         <div className='flex items-center justify-around'>
-          {MOBILE_NAV_ITEM.map((item) => {
+          {NAV_ITEM.map((item) => {
             const IconComponent = item.icon;
             const isActive = activeTab === item.id;
 
