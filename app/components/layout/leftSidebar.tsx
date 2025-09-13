@@ -35,7 +35,7 @@ const LeftSidebar = ({ currentUser }: LeftSidebarProps) => {
   };
 
   return (
-    <div className='h-screen w-80 border-r border-border bg-white/60 p-6 backdrop-blur-md'>
+    <div className='h-screen w-80 border-r border-border p-6 backdrop-blur-md'>
       {/* 현재 유저 정보 */}
       <div className='mb-8'>
         <div className='mb-6 flex items-center space-x-4'>
@@ -74,9 +74,11 @@ const LeftSidebar = ({ currentUser }: LeftSidebarProps) => {
                 <span className='text-16m'>{item.label}</span>
               </div>
               {item.count && (
-                <span className='min-w-[20px] rounded-full bg-red-base px-1.5 py-0.5 text-center text-12r text-white'>
-                  {item.count}
-                </span>
+                <div className='flex h-5 w-5 items-center justify-center rounded-full bg-red-base'>
+                  <span className='text-center text-12r text-white'>
+                    {item.count}
+                  </span>
+                </div>
               )}
             </button>
           );
