@@ -16,7 +16,7 @@ const FriendsPage = () => {
     <div className='mx-auto flex h-full max-w-2xl flex-col px-4 py-6'>
       {/* 상단 고정 영역 */}
       <div className='flex-shrink-0'>
-        <div className='mb-4 w-full'>
+        <div className='mb-6 w-full md:mb-8'>
           <div className='relative'>
             <Search
               size={18}
@@ -31,7 +31,7 @@ const FriendsPage = () => {
         </div>
       </div>
 
-      {/* 스크롤 되는 리스트 영역 */}
+      {/* 친구 목록 */}
       <div className='flex-1 divide-y divide-pink-base/5 overflow-y-auto no-scrollbar'>
         {FRIENDS_LIST.map((friend) => (
           <div
@@ -46,7 +46,6 @@ const FriendsPage = () => {
                   fill
                   className='rounded-full object-cover'
                 />
-                {/* 상태 표시 원 */}
                 <span
                   className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white ${statusColors[friend.status]}`}
                 />
