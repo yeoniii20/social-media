@@ -5,3 +5,5 @@ export interface User {
   profileImage: string;
   verified: boolean;
 }
+
+export type Status = 'online' | 'offline' | 'away';
