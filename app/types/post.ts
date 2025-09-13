@@ -1,9 +1,11 @@
+import { StaticImageData } from 'next/image';
+
 // 작성자 / 사용자
 export interface Author {
   id?: number | string;
   name: string;
   nickname: string;
-  profileImage: string;
+  profileImage: string | StaticImageData;
   verified: boolean;
 }
 
@@ -42,7 +44,7 @@ export interface Post {
 
 // 새 글 작성
 export interface CreatePostData {
-  content?: string;
+  content: string;
   images?: string[];
   category: number;
 }
