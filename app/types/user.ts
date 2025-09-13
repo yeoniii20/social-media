@@ -9,3 +9,8 @@ export interface User {
 }
 
 export type Status = 'online' | 'offline' | 'away';
+
+export interface MyFeed {
+  id: number;
+  img: string | StaticImageData;
+}

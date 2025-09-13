@@ -3,7 +3,6 @@
 import useResponsive from '@/app/hooks/useResponsive';
 import Image from 'next/image';
 import { formatTimeAgo } from '@/app/utils/timeFormat';
-
 import { Status } from '@/app/types/user';
 import { MESSAGE_LIST } from '@/app/data/mock/messages';
 import { truncateText } from '@/app/utils/text';

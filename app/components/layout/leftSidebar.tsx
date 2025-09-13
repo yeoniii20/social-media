@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { NAV_ITEM } from '@/app/data/menu';
 import { usePathname, useRouter } from 'next/navigation';

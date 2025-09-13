@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import SuggestionList from '../list/suggestionList';
 import CategoryList from '../list/categoryList';
