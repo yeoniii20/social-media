@@ -1,8 +1,10 @@
+import { StaticImageData } from 'next/image';
+
 export interface User {
   id: string;
   name: string;
   nickname: string;
-  profileImage: string;
+  profileImage: string | StaticImageData;
   verified: boolean;
 }
 
