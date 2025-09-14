@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: 'oooigram',
   description: '일상을 기록하세요.',
   icons: {
-    icon: '/profile.png',
+    icon: '/camera.png',
   },
   openGraph: {
     title: 'oooigram',
