@@ -1,11 +1,10 @@
-'use client';
-
 import React, { useState, ChangeEvent } from 'react';
 import { Image as ImageIcon, Send, X } from 'lucide-react';
 import Image from 'next/image';
 import { CreatePostData } from '@/app/types/post';
 import { usePostStore } from '@/app/store/usePostStore';
 import { mockCategories, mockCategoriesIcons } from '@/app/data/mock/category';
+import Alert from '../alert/alert';
 
 const MAX_CHAR = 280;
 const MAX_IMAGES = 4;
@@ -15,7 +14,10 @@ const CreatePostCard = () => {
   const [images, setImages] = useState<File[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [mode, setMode] = useState<boolean>(false);
-  const [selectedCategory, setSelectedCategory] = useState<number>(0);
+  const [selectedCategory, setSelectedCategory] = useState<number>(
+    mockCategories[0].id,
+  );
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const addPost = usePostStore((state) => state.addPost);
 
@@ -31,7 +33,7 @@ const CreatePostCard = () => {
       const postData: CreatePostData = {
         content: postContent,
         images: imageUrls,
-        category: selectedCategory || 0,
+        category: selectedCategory,
       };
 
       addPost(postData);
@@ -39,7 +41,8 @@ const CreatePostCard = () => {
       // 제출 후 초기화
       setPostContent('');
       setImages([]);
-      setSelectedCategory(0);
+      setSelectedCategory(mockCategories[0].id);
+      setShowAlert(true);
     } catch (error) {
       console.error('Failed to create post:', error);
     } finally {
@@ -95,7 +98,11 @@ const CreatePostCard = () => {
                 type='button'
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-1 rounded-full px-3 py-1 text-12m text-text-secondary transition md:text-14m ${isSelected ? `${cat.color} ring-2 ${cat.activeColor}` : 'bg-gray-100 hover:bg-gray-200'}`}
+                className={`flex items-center gap-1 rounded-full px-3 py-1 text-12m text-text-secondary transition md:text-14m ${
+                  isSelected
+                    ? `${cat.color} ring-2 ${cat.activeColor}`
+                    : 'bg-gray-100 hover:bg-gray-200'
+                }`}
               >
                 {Icon && <Icon size={16} />}
                 <span>{cat.name}</span>
@@ -181,6 +188,9 @@ const CreatePostCard = () => {
           </button>
         </div>
       </form>
+
+      {/* Alert 띄우기 */}
+      {showAlert && <Alert message='포스팅 완료!' />}
     </div>
   );
 };

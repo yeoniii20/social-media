@@ -1,5 +1,6 @@
 import { ListRequest, Post, CreatePostData } from '@/app/types/post';
 import { usePostStore } from '../store/usePostStore';
+import { mockPosts } from '../data/mock/post';
 
 /**
  * 포스트 가져오기
@@ -8,9 +9,9 @@ import { usePostStore } from '../store/usePostStore';
  */
 export const getPosts = async (request: ListRequest): Promise<Post[]> => {
   const { page, limit } = request;
+  await new Promise((resolve) => setTimeout(resolve, 300));
 
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  const posts = usePostStore.getState().posts;
+  const posts = mockPosts;
   return posts.slice((page - 1) * limit, page * limit);
 };
 
@@ -21,9 +22,9 @@ export const getPosts = async (request: ListRequest): Promise<Post[]> => {
  * @returns
  */
 export const getMorePosts = async (page: number, limit = 10) => {
-  const posts = await getPosts({ page, limit });
-  const hasMore = posts.length === limit;
-  return { posts, hasMore };
+  const chunk = await getPosts({ page, limit });
+  const hasMore = chunk.length === limit;
+  return { posts: chunk, hasMore };
 };
 
 /**
@@ -54,9 +55,7 @@ export const toggleRetweet = async (postId: string) => {
  * @returns
  */
 export const createPost = async (postData: CreatePostData): Promise<Post> => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
+  await new Promise((resolve) => setTimeout(resolve, 500));
   usePostStore.getState().addPost(postData);
-
   return usePostStore.getState().posts[0];
 };

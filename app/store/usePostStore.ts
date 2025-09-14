@@ -2,11 +2,11 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Post, CreatePostData } from '@/app/types/post';
 import { mockCategories } from '@/app/data/mock/category';
-import { mockPosts } from '../data/mock/post';
 import { useUserStore } from './useUserStore';
 
 interface PostState {
   posts: Post[];
+  setPosts: (posts: Post[]) => void;
   addPost: (postData: CreatePostData) => void;
   toggleLike: (postId: string) => void;
   toggleRetweet: (postId: string) => void;
@@ -16,13 +16,15 @@ interface PostState {
 export const usePostStore = create<PostState>()(
   persist(
     (set, get) => ({
-      // 초기 값은 기존 mock data
-      posts: mockPosts,
+      posts: [],
+
+      setPosts: (posts: Post[]) => set({ posts }),
 
       // 새 글 등록
       addPost: (postData: CreatePostData) => {
         const { posts } = get();
         const currentUser = useUserStore.getState().currentUser;
+
         const newPost: Post = {
           id: crypto.randomUUID(),
           author: currentUser,
@@ -77,8 +79,6 @@ export const usePostStore = create<PostState>()(
 
       clearPosts: () => set({ posts: [] }),
     }),
-    {
-      name: 'post-storage',
-    },
+    { name: 'post-storage' },
   ),
 );

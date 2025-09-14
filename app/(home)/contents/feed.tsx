@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState, useCallback, useTransition } from 'react';
+import React, { useCallback, useEffect, useState, useTransition } from 'react';
 import PostCard from '@/app/components/card/postCard';
 import { getMorePosts } from '@/app/api/post';
 import { Post } from '@/app/types/post';
+import { usePostStore } from '@/app/store/usePostStore';
+import LoadingDots from '@/app/components/loading/lodaingDots';
 
 interface FeedProps {
   initialPosts: Post[];
@@ -17,21 +19,37 @@ interface FeedProps {
  * @returns
  */
 const Feed = ({ initialPosts, initialHasMore }: FeedProps) => {
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const posts = usePostStore((s) => s.posts);
+  const setPosts = usePostStore((s) => s.setPosts);
+
   const [page, setPage] = useState<number>(2);
   const [hasMore, setHasMore] = useState<boolean>(initialHasMore);
-
   const [isPending, startTransition] = useTransition();
+
+  // store가 비어있을 때만 초기 데이터 세팅
+  useEffect(() => {
+    if (usePostStore.persist.hasHydrated() && posts.length === 0) {
+      setPosts(initialPosts);
+    }
+  }, [posts, initialPosts, setPosts]);
 
   const loadMorePosts = useCallback(() => {
     if (isPending || !hasMore) return;
     startTransition(async () => {
       const result = await getMorePosts(page);
-      setPosts((prev) => [...prev, ...result.posts]);
+
+      // append + id 기반 중복 방지
+      setPosts([
+        ...posts,
+        ...result.posts.filter(
+          (newPost) => !posts.some((p) => p.id === newPost.id),
+        ),
+      ]);
+
       setHasMore(result.hasMore);
       setPage((prev) => prev + 1);
     });
-  }, [page, isPending, hasMore]);
+  }, [page, isPending, hasMore, posts, setPosts]);
 
   // 스크롤 핸들러
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -57,7 +75,9 @@ const Feed = ({ initialPosts, initialHasMore }: FeedProps) => {
 
       {/* 로딩 상태 */}
       {isPending && (
-        <div className='mt-8 text-center text-text-secondary'>Loading...</div>
+        <div className='pb-10'>
+          <LoadingDots />
+        </div>
       )}
 
       {/* 더 이상 피드가 없을 경우 */}
