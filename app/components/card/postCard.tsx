@@ -268,7 +268,7 @@ const PostCard = ({ post }: PostCardProps) => {
             </div>
 
             {/* 댓글 작성 영역 */}
-            <div className='flex items-center space-x-3'>
+            <div className='mt-4 flex items-center space-x-3'>
               <Image
                 src={user.currentUser.profileImage}
                 alt={user.currentUser.name}
