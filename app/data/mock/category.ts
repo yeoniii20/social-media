@@ -1,4 +1,11 @@
-import { Music, Palette, BookOpen, Film, Utensils } from 'lucide-react';
+import {
+  Music,
+  Palette,
+  BookOpen,
+  Film,
+  Utensils,
+  LucideProps,
+} from 'lucide-react';
 
 export const mockCategories = [
   {
@@ -33,7 +40,12 @@ export const mockCategories = [
   },
 ];
 
-export const mockCategoriesIcons = {
+export const mockCategoriesIcons: Record<
+  string,
+  React.ForwardRefExoticComponent<
+    Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
+  >
+> = {
   요리: Utensils,
   그림: Palette,
   음악: Music,

@@ -1,8 +1,11 @@
+'use client';
+
 import React, { useState, ChangeEvent } from 'react';
 import { Image as ImageIcon, Send, X } from 'lucide-react';
 import Image from 'next/image';
-import { createPost } from '@/app/api/post';
 import { CreatePostData } from '@/app/types/post';
+import { usePostStore } from '@/app/store/usePostStore';
+import { mockCategories, mockCategoriesIcons } from '@/app/data/mock/category';
 
 const MAX_CHAR = 280;
 const MAX_IMAGES = 4;
@@ -12,6 +15,9 @@ const CreatePostCard = () => {
   const [images, setImages] = useState<File[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [mode, setMode] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<number>(0);
+
+  const addPost = usePostStore((state) => state.addPost);
 
   // 제출 핸들러
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,15 +31,15 @@ const CreatePostCard = () => {
       const postData: CreatePostData = {
         content: postContent,
         images: imageUrls,
-        category: 0,
+        category: selectedCategory || 0,
       };
 
-      const newPost = await createPost(postData);
-      console.log('Created new post:', newPost);
+      addPost(postData);
 
       // 제출 후 초기화
       setPostContent('');
       setImages([]);
+      setSelectedCategory(0);
     } catch (error) {
       console.error('Failed to create post:', error);
     } finally {
@@ -79,6 +85,25 @@ const CreatePostCard = () => {
           </div>
         </div>
 
+        {/* 카테고리 선택 */}
+        <div className='mt-4 flex flex-wrap gap-2'>
+          {mockCategories.map((cat) => {
+            const Icon = mockCategoriesIcons[cat.name];
+            const isSelected = selectedCategory === cat.id;
+            return (
+              <button
+                type='button'
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`flex items-center gap-1 rounded-full px-3 py-1 text-12m text-text-secondary transition md:text-14m ${isSelected ? `${cat.color} ring-2 ${cat.activeColor}` : 'bg-gray-100 hover:bg-gray-200'}`}
+              >
+                {Icon && <Icon size={16} />}
+                <span>{cat.name}</span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* 첨부 이미지 미리보기 */}
         {images.length > 0 && (
           <div className='mt-4 grid grid-cols-4 gap-2'>
@@ -120,7 +145,7 @@ const CreatePostCard = () => {
               }`}
             >
               <ImageIcon size={18} />
-              <span className='md:texcreatt-16m text-14m'>Image</span>
+              <span className='text-14m md:text-16m'>Image</span>
               <input
                 type='file'
                 accept='image/*'

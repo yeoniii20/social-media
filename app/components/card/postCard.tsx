@@ -98,7 +98,7 @@ const PostCard = ({ post }: PostCardProps) => {
           </div>
         </div>
         {/* 카테고리 */}
-        {/* <div>
+        <div>
           {(() => {
             const category = mockCategories.find(
               (c) => c.name === post.categoryName,
@@ -119,7 +119,7 @@ const PostCard = ({ post }: PostCardProps) => {
               </div>
             );
           })()}
-        </div> */}
+        </div>
       </div>
 
       {/* Content */}
