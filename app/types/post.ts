@@ -26,7 +26,7 @@ export interface Category {
 
 // 게시글
 export interface Post {
-  id: number;
+  id: string;
   author: Author;
   content: string;
   images: string[];

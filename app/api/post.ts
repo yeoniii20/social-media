@@ -1,7 +1,5 @@
-import { mockCategories } from '@/app/data/mock/category';
-import { mockPosts } from '@/app/data/mock/post';
 import { ListRequest, Post, CreatePostData } from '@/app/types/post';
-import { currentUser } from '../data/mock/user';
+import { usePostStore } from '../store/usePostStore';
 
 /**
  * 포스트 가져오기
@@ -12,7 +10,8 @@ export const getPosts = async (request: ListRequest): Promise<Post[]> => {
   const { page, limit } = request;
 
   await new Promise((resolve) => setTimeout(resolve, 500));
-  return mockPosts.slice((page - 1) * limit, page * limit);
+  const posts = usePostStore.getState().posts;
+  return posts.slice((page - 1) * limit, page * limit);
 };
 
 /**
@@ -29,38 +28,23 @@ export const getMorePosts = async (page: number, limit = 10) => {
 
 /**
  * 좋아요 토글
- * @param {number} postId 포스트 아이디
+ * @param {string} postId 포스트 아이디
  * @returns
  */
-export const toggleLike = async (postId: number) => {
-  // 5초 loading
+export const toggleLike = async (postId: string) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
-
-  const postIndex = mockPosts.findIndex((post) => post.id === postId);
-  if (postIndex !== -1) {
-    const post = mockPosts[postIndex];
-    post.isLiked = !post.isLiked;
-    post.likes = post.isLiked ? post.likes + 1 : post.likes - 1;
-  }
-
+  usePostStore.getState().toggleLike(postId);
   return { success: true };
 };
 
 /**
  * 리트윗 토글
- * @param {number} postId 포스트 아이디
+ * @param {string} postId 포스트 아이디
  * @returns
  */
-export const toggleRetweet = async (postId: number) => {
+export const toggleRetweet = async (postId: string) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
-
-  const postIndex = mockPosts.findIndex((post) => post.id === postId);
-  if (postIndex !== -1) {
-    const post = mockPosts[postIndex];
-    post.isRetweeted = !post.isRetweeted;
-    post.retweets = post.isRetweeted ? post.retweets + 1 : post.retweets - 1;
-  }
-
+  usePostStore.getState().toggleRetweet(postId);
   return { success: true };
 };
 
@@ -72,27 +56,7 @@ export const toggleRetweet = async (postId: number) => {
 export const createPost = async (postData: CreatePostData): Promise<Post> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  // 모두 기본 값으로 세팅
-  const newPost: Post = {
-    id: Math.max(...mockPosts.map((p) => p.id)) + 1,
-    author: {
-      ...currentUser,
-    },
-    content: postData.content,
-    images: postData.images || [],
-    category: postData.category,
-    categoryName:
-      mockCategories.find((c) => c.id === postData.category)?.name || '기타',
-    createdAt: new Date().toISOString(),
-    likes: 0,
-    retweets: 0,
-    comments: 0,
-    isLiked: false,
-    isRetweeted: false,
-    hasMoreComments: false,
-    commentList: [],
-  };
+  usePostStore.getState().addPost(postData);
 
-  mockPosts.unshift(newPost);
-  return newPost;
+  return usePostStore.getState().posts[0];
 };

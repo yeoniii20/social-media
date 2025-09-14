@@ -2,7 +2,7 @@ import { Post } from '@/app/types/post';
 
 export const mockPosts: Post[] = [
   {
-    id: 50,
+    id: crypto.randomUUID(),
     author: {
       name: '박요리',
       nickname: 'parkcooking',
@@ -74,7 +74,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 49,
+    id: crypto.randomUUID(),
     author: {
       name: '김그림',
       nickname: 'kimdrawing',
@@ -101,7 +101,8 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 48,
+    id: crypto.randomUUID(),
+
     author: {
       name: '이음악',
       nickname: 'leemusic',
@@ -136,7 +137,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 47,
+    id: crypto.randomUUID(),
     author: {
       name: '최영화',
       nickname: 'choimovie',
@@ -158,7 +159,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 46,
+    id: crypto.randomUUID(),
     author: {
       name: '정독서',
       nickname: 'jungbook',
@@ -180,7 +181,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 45,
+    id: crypto.randomUUID(),
     author: {
       name: '한베이킹',
       nickname: 'hanbaking',
@@ -232,7 +233,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 44,
+    id: crypto.randomUUID(),
     author: {
       name: '윤스케치',
       nickname: 'yunsketch',
@@ -291,7 +292,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 43,
+    id: crypto.randomUUID(),
     author: {
       name: '장기타',
       nickname: 'jangguitar',
@@ -313,7 +314,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 42,
+    id: crypto.randomUUID(),
     author: {
       name: '오시네마',
       nickname: 'ohcinema',
@@ -372,7 +373,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 41,
+    id: crypto.randomUUID(),
     author: {
       name: '서책방',
       nickname: 'seobookstore',
@@ -431,7 +432,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 40,
+    id: crypto.randomUUID(),
     author: {
       name: '김쿠킹',
       nickname: 'kimcooking2',
@@ -466,7 +467,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 39,
+    id: crypto.randomUUID(),
     author: {
       name: '박아트',
       nickname: 'parkart',
@@ -531,7 +532,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 38,
+    id: crypto.randomUUID(),
     author: {
       name: '조바이올린',
       nickname: 'joviolin',
@@ -553,7 +554,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 37,
+    id: crypto.randomUUID(),
     author: {
       name: '이필름',
       nickname: 'leefilm',
@@ -575,7 +576,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 36,
+    id: crypto.randomUUID(),
     author: {
       name: '최라이터',
       nickname: 'choiwriter',
@@ -634,7 +635,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 35,
+    id: crypto.randomUUID(),
     author: {
       name: '정파티시에',
       nickname: 'jungpatissier',
@@ -673,7 +674,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 34,
+    id: crypto.randomUUID(),
     author: {
       name: '강디자인',
       nickname: 'kangdesign',
@@ -695,7 +696,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 33,
+    id: crypto.randomUUID(),
     author: {
       name: '유드럼',
       nickname: 'yudrum',
@@ -754,7 +755,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 32,
+    id: crypto.randomUUID(),
     author: {
       name: '신감독',
       nickname: 'shindirector',
@@ -781,7 +782,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 31,
+    id: crypto.randomUUID(),
     author: {
       name: '민북클럽',
       nickname: 'minbookclub',
@@ -838,7 +839,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 30,
+    id: crypto.randomUUID(),
     author: {
       name: '황셰프',
       nickname: 'hwangchef',
@@ -860,7 +861,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 29,
+    id: crypto.randomUUID(),
     author: {
       name: '구일러스트',
       nickname: 'guillustrator',
@@ -886,7 +887,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 28,
+    id: crypto.randomUUID(),
     author: {
       name: '여행속의일러스트',
       nickname: 'travelillustrator',
@@ -912,7 +913,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 27,
+    id: crypto.randomUUID(),
     author: {
       name: '임작곡',
       nickname: 'limcomposer',
@@ -934,7 +935,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 26,
+    id: crypto.randomUUID(),
     author: {
       name: '류에세이',
       nickname: 'ryuessay',
@@ -956,7 +957,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 25,
+    id: crypto.randomUUID(),
     author: {
       name: '백홈메이드',
       nickname: 'baekhomemade',
@@ -983,7 +984,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 24,
+    id: crypto.randomUUID(),
     author: {
       name: '문캘리그라피',
       nickname: 'muncalligraphy',
@@ -1042,7 +1043,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 23,
+    id: crypto.randomUUID(),
     author: {
       name: '송보컬',
       nickname: 'songvocal',
@@ -1064,7 +1065,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 22,
+    id: crypto.randomUUID(),
     author: {
       name: '안평론가',
       nickname: 'ancritic',
@@ -1123,7 +1124,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 21,
+    id: crypto.randomUUID(),
     author: {
       name: '홍도서관',
       nickname: 'honglibrary',
@@ -1182,7 +1183,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 20,
+    id: crypto.randomUUID(),
     author: {
       name: '변퓨전',
       nickname: 'byeonfusion',
@@ -1208,7 +1209,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 19,
+    id: crypto.randomUUID(),
     author: {
       name: '표조각',
       nickname: 'pyosculpture',
@@ -1230,7 +1231,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 18,
+    id: crypto.randomUUID(),
     author: {
       name: '곽밴드',
       nickname: 'gwakband',
@@ -1252,7 +1253,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 17,
+    id: crypto.randomUUID(),
     author: {
       name: '허시나리오',
       nickname: 'heoscenario',
@@ -1274,7 +1275,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 16,
+    id: crypto.randomUUID(),
     author: {
       name: '고소설',
       nickname: 'gonovel',
@@ -1333,7 +1334,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 15,
+    id: crypto.randomUUID(),
     author: {
       name: '강스시',
       nickname: 'kangsushi',
@@ -1360,7 +1361,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 14,
+    id: crypto.randomUUID(),
     author: {
       name: '나만화',
       nickname: 'namanhwa',
@@ -1382,7 +1383,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 13,
+    id: crypto.randomUUID(),
     author: {
       name: '도재즈',
       nickname: 'dojazz',
@@ -1441,7 +1442,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 12,
+    id: crypto.randomUUID(),
     author: {
       name: '길거리영화',
       nickname: 'streetmovie',
@@ -1463,7 +1464,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 11,
+    id: crypto.randomUUID(),
     author: {
       name: '라다큐',
       nickname: 'radocu',
@@ -1526,7 +1527,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 10,
+    id: crypto.randomUUID(),
     author: {
       name: '바디저트',
       nickname: 'badessert',
@@ -1548,7 +1549,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 9,
+    id: crypto.randomUUID(),
     author: {
       name: '사픽셀',
       nickname: 'sapixel',
@@ -1575,7 +1576,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 8,
+    id: crypto.randomUUID(),
     author: {
       name: '아일렉트로',
       nickname: 'aelectro',
@@ -1634,7 +1635,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 7,
+    id: crypto.randomUUID(),
     author: {
       name: '자애니메이션',
       nickname: 'jaanimation',
@@ -1656,7 +1657,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 6,
+    id: crypto.randomUUID(),
     author: {
       name: '차역사',
       nickname: 'chahistory',
@@ -1715,7 +1716,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 5,
+    id: crypto.randomUUID(),
     author: {
       name: '카브런치',
       nickname: 'kabrunch',
@@ -1742,7 +1743,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 4,
+    id: crypto.randomUUID(),
     author: {
       name: '타스케치북',
       nickname: 'tasketchbook',
@@ -1801,7 +1802,7 @@ export const mockPosts: Post[] = [
     ],
   },
   {
-    id: 3,
+    id: crypto.randomUUID(),
     author: {
       name: '파하모니카',
       nickname: 'paharmonica',
@@ -1823,7 +1824,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 2,
+    id: crypto.randomUUID(),
     author: {
       name: '하배우',
       nickname: 'haactor',
@@ -1845,7 +1846,7 @@ export const mockPosts: Post[] = [
     commentList: [],
   },
   {
-    id: 1,
+    id: crypto.randomUUID(),
     author: {
       name: '갸과학',
       nickname: 'gyascience',

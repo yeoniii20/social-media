@@ -8,8 +8,8 @@ import { useUserStore } from './useUserStore';
 interface PostState {
   posts: Post[];
   addPost: (postData: CreatePostData) => void;
-  toggleLike: (postId: number) => void;
-  toggleRetweet: (postId: number) => void;
+  toggleLike: (postId: string) => void;
+  toggleRetweet: (postId: string) => void;
   clearPosts: () => void;
 }
 
@@ -24,7 +24,7 @@ export const usePostStore = create<PostState>()(
         const { posts } = get();
         const currentUser = useUserStore.getState().currentUser;
         const newPost: Post = {
-          id: Date.now(),
+          id: crypto.randomUUID(),
           author: currentUser,
           content: postData.content,
           images: postData.images || [],
@@ -46,7 +46,7 @@ export const usePostStore = create<PostState>()(
       },
 
       // 좋아요
-      toggleLike: (postId: number) => {
+      toggleLike: (postId: string) => {
         set({
           posts: get().posts.map((p) =>
             p.id === postId
@@ -61,7 +61,7 @@ export const usePostStore = create<PostState>()(
       },
 
       // 리트윗
-      toggleRetweet: (postId: number) => {
+      toggleRetweet: (postId: string) => {
         set({
           posts: get().posts.map((p) =>
             p.id === postId
