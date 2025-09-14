@@ -97,6 +97,12 @@ module.exports = {
         '12r': ['12px', { fontWeight: '400' }],
         '10r': ['10px', { fontWeight: '400' }],
       },
+      animation: {
+        'bounce-delay-0': 'bounce-up-down 1s ease-in-out infinite',
+        'bounce-delay-1': 'bounce-up-down 1s ease-in-out infinite 0.2s',
+        'bounce-delay-2': 'bounce-up-down 1s ease-in-out infinite 0.4s',
+        'bounce-delay-3': 'bounce-up-down 1s ease-in-out infinite 0.6s',
+      },
     },
   },
   plugins: [
