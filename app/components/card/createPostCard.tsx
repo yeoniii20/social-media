@@ -5,11 +5,14 @@ import { CreatePostData } from '@/app/types/post';
 import { usePostStore } from '@/app/store/usePostStore';
 import { mockCategories, mockCategoriesIcons } from '@/app/data/mock/category';
 import Alert from '../alert/alert';
+import { useRouter } from 'next/navigation';
 
 const MAX_CHAR = 280;
 const MAX_IMAGES = 4;
 
 const CreatePostCard = () => {
+  const router = useRouter();
+
   const [postContent, setPostContent] = useState<string>('');
   const [images, setImages] = useState<File[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -43,6 +46,10 @@ const CreatePostCard = () => {
       setImages([]);
       setSelectedCategory(mockCategories[0].id);
       setShowAlert(true);
+
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
     } catch (error) {
       console.error('Failed to create post:', error);
     } finally {
