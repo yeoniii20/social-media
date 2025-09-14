@@ -210,7 +210,9 @@ const PostCard = ({ post }: PostCardProps) => {
             size={16}
             className={`md:h-[18px] md:w-[18px]`}
           />
-          <span className='text-14m md:text-16m'>{post.comments}</span>
+          <span className='text-14m md:text-16m'>
+            {post.commentList.length}
+          </span>
         </button>
 
         <button className='flex items-center space-x-1 rounded-full text-text-light transition-colors hover:bg-bg-extraSoft md:space-x-2'>

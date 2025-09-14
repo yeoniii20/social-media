@@ -5,24 +5,21 @@ import { mockCategories } from '@/app/data/mock/category';
 import { useUserStore } from './useUserStore';
 
 interface PostState {
-  posts: Post[];
-  setPosts: (posts: Post[]) => void;
+  newPosts: Post[];
   addPost: (postData: CreatePostData) => void;
   toggleLike: (postId: string) => void;
   toggleRetweet: (postId: string) => void;
-  clearPosts: () => void;
+  clearNewPosts: () => void;
 }
 
 export const usePostStore = create<PostState>()(
   persist(
     (set, get) => ({
-      posts: [],
-
-      setPosts: (posts: Post[]) => set({ posts }),
+      newPosts: [],
 
       // 새 글 등록
       addPost: (postData: CreatePostData) => {
-        const { posts } = get();
+        const { newPosts } = get();
         const currentUser = useUserStore.getState().currentUser;
 
         const newPost: Post = {
@@ -44,13 +41,12 @@ export const usePostStore = create<PostState>()(
           commentList: [],
         };
 
-        set({ posts: [newPost, ...posts] });
+        set({ newPosts: [newPost, ...newPosts] });
       },
-
       // 좋아요
       toggleLike: (postId: string) => {
         set({
-          posts: get().posts.map((p) =>
+          newPosts: get().newPosts.map((p) =>
             p.id === postId
               ? {
                   ...p,
@@ -65,7 +61,7 @@ export const usePostStore = create<PostState>()(
       // 리트윗
       toggleRetweet: (postId: string) => {
         set({
-          posts: get().posts.map((p) =>
+          newPosts: get().newPosts.map((p) =>
             p.id === postId
               ? {
                   ...p,
@@ -77,8 +73,8 @@ export const usePostStore = create<PostState>()(
         });
       },
 
-      clearPosts: () => set({ posts: [] }),
+      clearNewPosts: () => set({ newPosts: [] }),
     }),
-    { name: 'post-storage' },
+    { name: 'new-post-storage' },
   ),
 );
