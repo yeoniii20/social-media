@@ -157,7 +157,7 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
                 <div className='absolute right-0 top-8 w-28 rounded-lg border bg-white shadow-sm'>
                   <button
                     onClick={onDelete}
-                    className='block w-full px-4 py-2 text-left text-12m text-red-500 hover:bg-red-base md:text-14m'
+                    className='block w-full px-4 py-2 text-left text-12m text-red-500 hover:bg-red-light md:text-14m'
                   >
                     삭제하기
                   </button>

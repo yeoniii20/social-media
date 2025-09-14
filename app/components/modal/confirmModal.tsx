@@ -44,7 +44,7 @@ const ConfirmModal = ({
           </button>
           <button
             onClick={onConfirm}
-            className='flex-1 rounded-lg bg-red-500 px-4 py-2 text-12m text-white hover:bg-red-600 md:text-14m'
+            className='flex-1 rounded-lg bg-red-500 px-4 py-2 text-12m text-white hover:bg-red-light md:text-14m'
           >
             {confirmText}
           </button>

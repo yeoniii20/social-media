@@ -8,7 +8,7 @@ const RightSidebar = () => {
       <h2 className='mb-4 mt-1 text-18b text-text-primary'>친구 추천</h2>
       <div className='flex flex-col gap-12'>
         <SuggestionList />
-        {/* <CategoryList /> */}
+        <CategoryList />
       </div>
     </div>
   );
