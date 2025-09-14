@@ -7,12 +7,12 @@ import { mockPosts } from '../data/mock/post';
  * @param {ListRequest} request 불러올 페이지 수 / 개수
  * @returns
  */
-export const getPosts = async ({
-  page,
-  limit,
-}: ListRequest): Promise<Post[]> => {
+export const getPosts = async (request: ListRequest): Promise<Post[]> => {
+  const { page, limit } = request;
   await new Promise((resolve) => setTimeout(resolve, 200));
-  return mockPosts.slice((page - 1) * limit, page * limit);
+
+  const posts = usePostStore.getState().posts;
+  return posts.slice((page - 1) * limit, page * limit);
 };
 
 /**
@@ -23,9 +23,20 @@ export const getPosts = async ({
  */
 export const getMorePosts = async (page: number, limit = 10) => {
   const chunk = await getPosts({ page, limit });
-  const hasMore = chunk.length === limit;
-  return { posts: chunk, hasMore };
+  return { posts: chunk, hasMore: chunk.length === limit };
 };
+
+/**
+ * 포스트 삭제
+ * @param {string} postId 포스트 아이디
+ * @returns
+ */
+export const deletePost = async (postId: string) => {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  usePostStore.getState().deletePost(postId);
+  return { success: true };
+};
+
 
 /**
  * 좋아요 토글
@@ -55,7 +66,7 @@ export const toggleRetweet = async (postId: string) => {
  * @returns
  */
 export const createPost = async (postData: CreatePostData): Promise<Post> => {
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 200));
   usePostStore.getState().addPost(postData);
-  return usePostStore.getState().newPosts[0];
+  return usePostStore.getState().posts[0];
 };

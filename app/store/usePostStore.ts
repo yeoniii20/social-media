@@ -3,23 +3,29 @@ import { persist } from 'zustand/middleware';
 import { Post, CreatePostData } from '@/app/types/post';
 import { mockCategories } from '@/app/data/mock/category';
 import { useUserStore } from './useUserStore';
+import { mockPosts } from '@/app/data/mock/post';
 
 interface PostState {
-  newPosts: Post[];
+  posts: Post[];
+  setPosts: (posts: Post[]) => void;
   addPost: (postData: CreatePostData) => void;
   toggleLike: (postId: string) => void;
   toggleRetweet: (postId: string) => void;
-  clearNewPosts: () => void;
+  deletePost: (postId: string) => void;
+  clearPosts: () => void;
 }
 
 export const usePostStore = create<PostState>()(
   persist(
     (set, get) => ({
-      newPosts: [],
+      // 초기값: mockPosts로 시작
+      posts: mockPosts,
+
+      setPosts: (posts: Post[]) => set({ posts }),
 
       // 새 글 등록
       addPost: (postData: CreatePostData) => {
-        const { newPosts } = get();
+        const { posts } = get();
         const currentUser = useUserStore.getState().currentUser;
 
         const newPost: Post = {
@@ -41,12 +47,13 @@ export const usePostStore = create<PostState>()(
           commentList: [],
         };
 
-        set({ newPosts: [newPost, ...newPosts] });
+        set({ posts: [newPost, ...posts] });
       },
-      // 좋아요
+
+      // 좋아요 토글
       toggleLike: (postId: string) => {
         set({
-          newPosts: get().newPosts.map((p) =>
+          posts: get().posts.map((p) =>
             p.id === postId
               ? {
                   ...p,
@@ -58,10 +65,10 @@ export const usePostStore = create<PostState>()(
         });
       },
 
-      // 리트윗
+      // 리트윗 토글
       toggleRetweet: (postId: string) => {
         set({
-          newPosts: get().newPosts.map((p) =>
+          posts: get().posts.map((p) =>
             p.id === postId
               ? {
                   ...p,
@@ -73,8 +80,14 @@ export const usePostStore = create<PostState>()(
         });
       },
 
-      clearNewPosts: () => set({ newPosts: [] }),
+      deletePost: (postId: string) => {
+        set({
+          posts: get().posts.filter((p) => p.id !== postId),
+        });
+      },
+
+      clearPosts: () => set({ posts: [] }),
     }),
-    { name: 'new-post-storage' },
+    { name: 'post-storage' },
   ),
 );
