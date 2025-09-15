@@ -3,6 +3,7 @@
 import { deletePost, getMorePosts } from '@/app/api/post';
 import PostCard from '@/app/components/card/postCard';
 import LoadingDots from '@/app/components/loading/lodaingDots';
+import PostCardSkeletonList from '@/app/components/loading/postCardSkeletonList';
 import ConfirmModal from '@/app/components/modal/confirmModal';
 import { Post } from '@/app/types/post';
 import { useState, useTransition, useEffect, useCallback } from 'react';
@@ -15,19 +16,20 @@ const Feed = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [isPending, startTransition] = useTransition();
-
-  // 삭제 모달 상태
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [isInitialLoading, setIsInitialLoading] = useState<boolean>(true);
 
   // 초기 로드
   useEffect(() => {
     startTransition(async () => {
+      setIsInitialLoading(true);
       const result = await getMorePosts(1, 10);
       setPosts(result.posts);
       setHasMore(result.hasMore);
       setPage(2);
+      setIsInitialLoading(false);
     });
   }, []);
 
@@ -84,12 +86,30 @@ const Feed = () => {
         ))}
       </div>
 
-      {isPending && (
+      {/* 초기 로딩: 스켈레톤 */}
+      {isInitialLoading ? (
+        <PostCardSkeletonList count={5} />
+      ) : (
+        <div className='space-y-4 md:space-y-6'>
+          {posts.map((post) => (
+            <PostCard
+              key={post.id}
+              post={post}
+              onDelete={() => {
+                setSelectedPost(post);
+                setShowConfirm(true);
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* 무한 스크롤 로딩 */}
+      {isPending && !isInitialLoading && (
         <div className='pb-10'>
           <LoadingDots />
         </div>
       )}
-
       {!hasMore && (
         <p className='mt-8 text-center text-12m text-text-light md:text-14m'>
           마지막 게시물입니다.
