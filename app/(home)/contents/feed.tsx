@@ -6,7 +6,13 @@ import LoadingDots from '@/app/components/loading/lodaingDots';
 import PostCardSkeletonList from '@/app/components/loading/postCardSkeletonList';
 import ConfirmModal from '@/app/components/modal/confirmModal';
 import { Post } from '@/app/types/post';
-import { useState, useTransition, useEffect, useCallback } from 'react';
+import React, {
+  useState,
+  useTransition,
+  useEffect,
+  useCallback,
+  useRef,
+} from 'react';
 
 /**
  * 피드 컴포넌트
@@ -21,6 +27,8 @@ const Feed = () => {
   const [isPending, startTransition] = useTransition();
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(true);
 
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+
   // 초기 로드
   useEffect(() => {
     startTransition(async () => {
@@ -33,7 +41,7 @@ const Feed = () => {
     });
   }, []);
 
-  // 무한 스크롤
+  // 무한 스크롤 로드
   const loadMorePosts = useCallback(() => {
     if (isPending || !hasMore) return;
     startTransition(async () => {
@@ -59,7 +67,7 @@ const Feed = () => {
     }
   };
 
-  // 삭제 실행
+  // 게시물 삭제
   const handleDelete = async () => {
     if (!selectedPost) return;
     await deletePost(selectedPost.id);
@@ -73,19 +81,6 @@ const Feed = () => {
       className='mx-auto h-full w-full max-w-2xl overflow-y-auto px-4 py-6 no-scrollbar'
       onScroll={handleScroll}
     >
-      <div className='space-y-4 md:space-y-6'>
-        {posts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            onDelete={() => {
-              setSelectedPost(post);
-              setShowConfirm(true);
-            }}
-          />
-        ))}
-      </div>
-
       {/* 초기 로딩: 스켈레톤 */}
       {isInitialLoading ? (
         <PostCardSkeletonList count={5} />
@@ -110,7 +105,9 @@ const Feed = () => {
           <LoadingDots />
         </div>
       )}
-      {!hasMore && (
+
+      {/* 더 이상 게시물이 없을 때 */}
+      {!hasMore && !isInitialLoading && (
         <p className='mt-8 text-center text-12m text-text-light md:text-14m'>
           마지막 게시물입니다.
         </p>
