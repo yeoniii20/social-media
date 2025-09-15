@@ -1,24 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Heart,
-  MessageCircle,
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  MoreVertical,
-} from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, MoreVertical } from 'lucide-react';
 import Image from 'next/image';
 import { formatTimeAgo } from '@/app/utils/timeFormat';
 import { useSwipeable } from 'react-swipeable';
-import { FaRetweet } from 'react-icons/fa6';
-import { mockCategories, mockCategoriesIcons } from '@/app/data/mock/category';
 import { formatHashtags } from '@/app/utils/formatHashtags';
 import { Post } from '@/app/types/post';
 import { useUserStore } from '@/app/store/useUserStore';
 import { toggleLike, toggleRetweet } from '@/app/api/post';
-import { usePostStore } from '@/app/store/usePostStore';
-import ConfirmModal from '../modal/confirmModal';
+import CommentSection from '../commentSection';
+import PostActions from '../postActions';
+import PostCategoryBadge from '../postCategoryBadge';
 
 interface PostCardProps {
   post: Post;
@@ -41,7 +33,6 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
   const [retweetesCount, setRetweetesCount] = useState<number>(post.retweets);
   const [showComments, setShowComments] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [visibleComments, setVisibleComments] = useState<number>(3);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const { content, tags } = formatHashtags(post.content);
@@ -233,146 +224,24 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
 
       <div className='flex flex-row items-center justify-between border-t border-border pt-2 md:pt-4'>
         {/* 카테고리 */}
-        {(() => {
-          const category = mockCategories.find(
-            (c) => c.name === post.categoryName,
-          );
-          const IconComponent =
-            mockCategoriesIcons[
-              post.categoryName as keyof typeof mockCategoriesIcons
-            ];
-          if (!category || !IconComponent) return null;
-          return (
-            <div
-              className={`inline-flex items-center space-x-1 rounded-full px-2.5 py-1 text-text-primary opacity-60 ${category.color} ring-1 ${category.activeColor}`}
-            >
-              <IconComponent size={14} />
-              <span className='text-10r md:text-12r'>{category.name}</span>
-            </div>
-          );
-        })()}
+        <PostCategoryBadge categoryName={post.categoryName} />
 
-        {/* Action Buttons */}
-        <div className='flex gap-3 md:gap-4'>
-          <button
-            onClick={handleLike}
-            className={`flex items-center space-x-1 rounded-full transition-all md:space-x-2 ${
-              isLiked
-                ? 'text-red-base'
-                : 'text-text-light hover:bg-bg-extraSoft'
-            }`}
-          >
-            <Heart
-              size={16}
-              className={`md:h-[18px] md:w-[18px] ${
-                isLiked ? 'fill-current text-red-base' : ''
-              }`}
-            />
-            <span className='text-14m md:text-16m'>{likesCount}</span>
-          </button>
-
-          <button
-            onClick={toggleComments}
-            className='flex items-center space-x-1 rounded-full text-text-light transition-colors hover:bg-bg-extraSoft md:space-x-2'
-          >
-            <MessageCircle
-              size={16}
-              className={`md:h-[18px] md:w-[18px]`}
-            />
-            <span className='text-14m md:text-16m'>
-              {post.commentList.length}
-            </span>
-          </button>
-
-          <button
-            onClick={handleRetweet}
-            className={`flex items-center space-x-1 rounded-full transition-all md:space-x-2 ${
-              isRetweeted
-                ? 'text-purple-base'
-                : 'text-text-light hover:bg-bg-extraSoft'
-            }`}
-          >
-            <FaRetweet
-              size={16}
-              className={`md:h-[18px] md:w-[18px] ${
-                isRetweeted ? 'fill-current text-purple-base' : ''
-              }`}
-            />
-            <span className='text-14m md:text-16m'>{retweetesCount}</span>
-          </button>
-        </div>
+        {/* 액션 버튼 */}
+        <PostActions
+          isLiked={isLiked}
+          likesCount={likesCount}
+          isRetweeted={isRetweeted}
+          retweetesCount={retweetesCount}
+          commentsCount={post.commentList.length}
+          onLike={handleLike}
+          onRetweet={handleRetweet}
+          onToggleComments={toggleComments}
+        />
       </div>
+
       {/* 댓글 영역 */}
       <AnimatePresence>
-        {showComments && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className='mt-4 border-t border-border pt-4'
-          >
-            <div className='space-y-3'>
-              {post.commentList
-                .slice(0, visibleComments)
-                .map((comment, index) => (
-                  <div
-                    key={index}
-                    className='flex items-start space-x-3'
-                  >
-                    <Image
-                      src={comment.author.profileImage}
-                      alt={comment.author.name}
-                      width={40}
-                      height={40}
-                      className='rounded-full object-cover'
-                    />
-                    <div className='flex-1'>
-                      <div className='rounded-2xl bg-bg-extraSoft px-4 py-2'>
-                        <div className='mb-1 flex items-center space-x-2'>
-                          <span className='text-12m text-text-primary md:text-14m'>
-                            {comment.author.name}
-                          </span>
-                          <span className='text-10r text-text-light md:text-12r'>
-                            {formatTimeAgo(comment.createdAt)}
-                          </span>
-                        </div>
-                        <p className='text-12r text-text-secondary md:text-14r'>
-                          {comment.content}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-            </div>
-
-            {/* 더 보기 버튼 */}
-            {visibleComments < post.commentList.length && (
-              <button
-                onClick={() => setVisibleComments(post.commentList.length)}
-                className='mt-3 w-full text-12m text-purple-base hover:underline md:text-14m'
-              >
-                댓글 더 보기 ({post.commentList.length - visibleComments}개)
-              </button>
-            )}
-
-            {/* 댓글 작성 영역 */}
-            <div className='mt-4 flex items-center space-x-3'>
-              <Image
-                src={user.currentUser.profileImage}
-                alt={user.currentUser.name}
-                width={40}
-                height={40}
-                className='h-8 w-8 rounded-full object-cover'
-              />
-              <input
-                type='text'
-                placeholder='댓글을 작성해보세요.'
-                className='flex-1 rounded-full bg-bg-extraSoft px-4 py-2 text-12r text-text-primary focus:outline-none focus:ring-2 focus:ring-purple-base md:text-14r'
-              />
-            </div>
-          </motion.div>
-        )}
+        {showComments && <CommentSection post={post} />}
       </AnimatePresence>
     </motion.div>
   );
