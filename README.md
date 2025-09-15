@@ -1,5 +1,7 @@
-# 📸 oooifram 을 소개합니다!
+# 📸 oooigram 을 소개합니다!
 > 사진과 글을 하나의 순간으로 기록하는 SNS
+
+[배포 사이트 바로가기](https://oooigram.vercel.app)
 
 <br/>
 
