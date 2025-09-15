@@ -2,19 +2,13 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Status } from '@/app/types/user';
 import { useFriendStore } from '@/app/store/useFriendStore';
 import Searchbar from '@/app/components/searchbar';
 import { deleteFriend } from '@/app/api/friend';
-
-const statusColors: Record<Status, string> = {
-  online: 'bg-green-500',
-  offline: 'bg-gray-400',
-  away: 'bg-yellow-400',
-};
+import { statusColors } from '@/app/utils/statusColors';
 
 const FriendsPage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const friends = useFriendStore((state) => state.friends);
 
   // 검색 필터링
@@ -22,6 +16,7 @@ const FriendsPage = () => {
     friend.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
+  // 팔로우 기능
   const handleUnfollow = async (id: string) => {
     await deleteFriend(id);
   };
