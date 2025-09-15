@@ -1,6 +1,11 @@
 import { Search } from 'lucide-react';
 
-const Searchbar = () => {
+interface SearchbarProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const Searchbar = ({ value, onChange }: SearchbarProps) => {
   return (
     <div className='flex-shrink-0'>
       <div className='mb-6 w-full md:mb-8'>
@@ -12,7 +17,9 @@ const Searchbar = () => {
           <input
             type='text'
             placeholder='Search...'
-            className='w-full rounded-full bg-bg-extralight py-2 pl-10 pr-4 text-12r shadow-sm transition-all focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-base md:text-14r'
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className='w-full rounded-full bg-bg-extralight py-2 pl-10 pr-4 text-12r text-text-primary shadow-sm transition-all placeholder:text-text-light focus:bg-white focus:outline-none focus:ring-1 focus:ring-purple-base md:text-14r'
           />
         </div>
       </div>

@@ -16,7 +16,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         {isLg && <LeftSidebar />}
 
         {/* Children */}
-        <main className='h-screen flex-1 overflow-y-auto no-scrollbar'>
+        <main
+          className={`h-screen flex-1 overflow-y-auto no-scrollbar ${isLg ? '' : 'pb-[50.8px]'}`}
+        >
           {children}
         </main>
 

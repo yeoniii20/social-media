@@ -350,9 +350,9 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
             {visibleComments < post.commentList.length && (
               <button
                 onClick={() => setVisibleComments(post.commentList.length)}
-                className='mt-3 w-full text-12m text-purple-base hover:underline md:text-14m'
+                className='mt-3 w-full text-12m text-text-light md:text-14m'
               >
-                댓글 더 보기 ({post.commentList.length - visibleComments}개)
+                댓글 더보기 ({post.commentList.length - visibleComments}개)
               </button>
             )}
 
