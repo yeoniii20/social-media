@@ -291,3 +291,26 @@ export const FRIENDS_LIST: Friend[] = [
     status: 'offline' as Status,
   },
 ];
+
+export const FRIEND_REQUESTS = [
+  {
+    id: crypto.randomUUID(),
+    name: '박진주',
+    profileImg: friend41,
+  },
+  {
+    id: crypto.randomUUID(),
+    name: '김소원',
+    profileImg: friend42,
+  },
+  {
+    id: crypto.randomUUID(),
+    name: '이하늘',
+    profileImg: friend43,
+  },
+  {
+    id: crypto.randomUUID(),
+    name: '김민주',
+    profileImg: friend44,
+  },
+];
