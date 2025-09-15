@@ -28,3 +28,17 @@ export const formatTimeAgo = (dateString: string) => {
   const diffInDays = Math.floor(diffInHours / 24);
   return `${diffInDays}일 전`;
 };
+
+/**
+ *
+ * @param {string} dateString dateTime
+ * @returns HH:mm
+ */
+export const formatMessageTime = (dateTime: string) => {
+  const date = new Date(dateTime);
+  return date.toLocaleTimeString('ko-KR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+};
