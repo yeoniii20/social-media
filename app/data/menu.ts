@@ -7,18 +7,9 @@ export const NAV_ITEM: Menu[] = [
     id: 'messages',
     icon: MessageCircle,
     label: 'Messages',
-    count: 3,
     url: '/messages',
   },
   { id: 'create', icon: Plus, label: 'Create', special: true, url: '/create' },
-  { id: 'friends', icon: Users, label: 'Friends', count: 5, url: '/friends' },
+  { id: 'friends', icon: Users, label: 'Friends', count: 4, url: '/friends' },
   { id: 'profile', icon: User, label: 'Profile', url: '/profile' },
 ];
-
-// {
-//   id: 'settings',
-//   icon: Settings,
-//   label: 'Settings',
-//   count: null,
-//   url: '/settings',
-// },

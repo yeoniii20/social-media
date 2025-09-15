@@ -7,14 +7,8 @@ import Searchbar from '@/app/components/searchbar';
 import { truncateText } from '@/app/utils/text';
 import { MESSAGE_LIST } from '@/app/data/mock/messages';
 import Image from 'next/image';
-import { Status } from '@/app/types/user';
 import useResponsive from '@/app/hooks/useResponsive';
-
-const statusColors: Record<Status, string> = {
-  online: 'bg-green-500',
-  offline: 'bg-gray-400',
-  away: 'bg-yellow-400',
-};
+import { statusColors } from '@/app/utils/statusColors';
 
 const MessagesPage = () => {
   const router = useRouter();

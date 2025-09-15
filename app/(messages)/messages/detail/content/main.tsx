@@ -14,15 +14,7 @@ import Image from 'next/image';
 import useResponsive from '@/app/hooks/useResponsive';
 import { formatMessageTime } from '@/app/utils/timeFormat';
 import { ChatMessage } from '@/app/types/message';
-
-// 상태 타입 정의
-type Status = 'online' | 'offline' | 'away';
-
-const statusColors: Record<Status, string> = {
-  online: 'bg-green-500',
-  offline: 'bg-gray-400',
-  away: 'bg-yellow-400',
-};
+import { statusColors } from '@/app/utils/statusColors';
 
 const MainContent = () => {
   const params = useSearchParams();
