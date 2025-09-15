@@ -91,7 +91,9 @@ const Feed = () => {
       )}
 
       {!hasMore && (
-        <div className='mt-8 text-center text-text-secondary'>No more</div>
+        <p className='mt-8 text-center text-12m text-text-light md:text-14m'>
+          마지막 게시물입니다.
+        </p>
       )}
 
       {/* 삭제 모달 */}
